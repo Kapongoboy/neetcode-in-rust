@@ -24,7 +24,7 @@ pub fn is_anagram(s: String, t: String) -> bool {
         m_t.entry(item).and_modify(|i| *i += 1).or_insert(1);
     }
 
-    return m_s == m_t;
+    m_s == m_t
 }
 
 #[cfg(test)]
