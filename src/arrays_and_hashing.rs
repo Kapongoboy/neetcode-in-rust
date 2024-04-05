@@ -13,11 +13,18 @@ pub fn contains_duplicate(nums: Vec<i32>) -> bool {
 }
 
 pub fn is_anagram(s: String, t: String) -> bool {
-    let mut ordered_s = s.chars().collect::<Vec<char>>();
-    ordered_s.sort();
-    let mut ordered_t = t.chars().collect::<Vec<char>>();
-    ordered_t.sort();
-    ordered_s == ordered_t
+    let mut m_s = HashMap::new();
+    let mut m_t = HashMap::new();
+
+    for item in s.chars() {
+        m_s.entry(item).and_modify(|i| *i += 1).or_insert(1);
+    }
+
+    for item in t.chars() {
+        m_t.entry(item).and_modify(|i| *i += 1).or_insert(1);
+    }
+
+    return m_s == m_t;
 }
 
 #[cfg(test)]
