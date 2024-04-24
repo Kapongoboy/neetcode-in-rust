@@ -1,9 +1,31 @@
 pub fn generate_parenthesis(n: i32) -> Vec<String> {
-    let mut stack = String::new();
-    let mut result = Vec::new();
-    let (mut opened, mut closed) = (0, 0);
+    let mut result: Vec<String> = Vec::new();
 
-    fn walk() {}
+    fn walk(opened: i32, closed: i32, s: String, result: &mut Vec<String>) {
+        if opened == 0 && closed == 0 {
+            result.push(s);
+            return;
+        }
+
+        if opened ==  closed {
+            walk(opened - 1, closed, s.clone() + "(", result);
+        } else {
+
+            if opened > 0 {
+                walk(opened - 1, closed, s.clone() + "(", result);
+            }
+
+            if closed > 0 {
+                walk(opened, closed - 1, s.clone() + ")", result);
+            }
+
+        }
+
+
+    }
+
+    walk(n, n, String::from(""), &mut result);
+    result
 }
 
 #[cfg(test)]
